@@ -7,36 +7,44 @@ Objetivo: Crear un cliente de chat que se conecte a un servidor y permita enviar
 import socket
 import threading
 
-def receive_messages():
+HOST = 'localhost'
+PORT = 9003
+
+client_socket = None
+
+def recibir_mensajes():
     """
     Función ejecutada en un hilo separado para recibir mensajes del servidor
     de forma continua sin bloquear el hilo principal.
     """
     while True:
-        # TODO: Recibir mensajes del servidor (hasta 1024 bytes) y decodificarlos
-
+        #Recibir mensajes del servidor (hasta 1024 bytes) y decodificarlos
+        mensaje = cliente(1024).decode()
         # Imprimir el mensaje recibido
-        print(message)
+        print(mensaje)
 
 # Solicitar nombre de usuario al cliente
-client_name = input("Cuál es tu nombre? ")
+nombre = input("Cuál es tu nombre? ")
 
-# TODO: Crear un socket TCP/IP
+#Crear un socket TCP/IP
 # AF_INET: socket de familia IPv4
 # SOCK_STREAM: socket de tipo TCP (orientado a conexión)
+cliente = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+#Conectar el socket al servidor en la dirección y puerto especificados
+cliente.connect((HOST, PORT))
 
-# TODO: Conectar el socket al servidor en la dirección y puerto especificados
-
-# TODO: Enviar el nombre del cliente al servidor (codificado a bytes)
+#Enviar el nombre del cliente al servidor (codificado a bytes)
+cliente.send(nombre.encode())
 
 # Crear y iniciar un hilo para recibir mensajes del servidor
 # target: función que se ejecutará en el hilo
-receive_thread = threading.Thread(target=receive_messages)
-receive_thread.start()
+hilo_recibir = threading.Thread(target=recibir_mensajes)
+hilo_recibir.start()
 
 # Bucle principal en el hilo principal para enviar mensajes al servidor
 while True:
     # Solicitar mensaje al usuario por consola
-    message = input("Mensaje: ")
-    # TODO: Codificar el mensaje a bytes y enviarlo al servidor
-
+    mensaje = input("Mensaje: ")
+    #Codificar el mensaje a bytes y enviarlo al servidor
+    cliente.send(mensaje.encode())
+    
