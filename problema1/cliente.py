@@ -7,7 +7,7 @@ Objetivo: Crear un cliente TCP que se conecte a un servidor e intercambie mensaj
 import socket
 
 HOST = 'localhost'  # Escuchar en todas las interfaces disponibles
-PORT = 9000  
+PORT = 9001
 
 # Crear un socket TCP/IP
 cliente = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
