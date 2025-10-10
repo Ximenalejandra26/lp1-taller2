@@ -11,7 +11,7 @@ HOST = 'localhost'
 PORT = 9002
 
 # Solicitar mensaje al usuario por consola
-message = input("Mensaje: ")
+mensaje = input("Digite tu mensaje: ")
 
 # Crear un socket TCP/IP
 # AF_INET: socket de familia IPv4
@@ -22,17 +22,17 @@ cliente = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 cliente.connect((HOST, PORT))
 
 # Mostrar mensaje que se va a enviar
-print(f"Mensaje '{message}' enviado.")
+print(f"Mensaje enviado: '{mensaje}'")
 
 #Codificar el mensaje a bytes y enviarlo al servidor
 # sendall() asegura que todos los datos sean enviados
-cliente.sendall(message.encode())
+cliente.sendall(mensaje . encode())
 
 # Recibir datos del servidor (hasta 1024 bytes)
-data = cliente.recv(1024)
+respuesta = cliente.recv(1024)
 
 # Decodificar e imprimir los datos recibidos
-print("Mensaje recibido: ", data.decode())
+print("Respuesta del 'Echo': '{respuesta}'" )
 
 #Cerrar la conexión con el servidor
 cliente.close()
